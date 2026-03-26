@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herald SEO - Lead Generation Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .metric-label {
+            color: #94a3b8;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+        h2 {
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .card h3 {
+            color: #38bdf8;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { color: #94a3b8; }
+        .stat-value { color: #f1f5f9; font-weight: 600; }
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            height: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 1rem 0;
+            transition: opacity 0.3s ease;
+        }
+        .cta-button:hover { opacity: 0.9; }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-high { background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid #22c55e; }
+        .badge-medium { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid #fbbf24; }
+        .badge-low { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        th {
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        td { color: #f1f5f9; }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Herald SEO Lead Dashboard</h1>
+        <p class="subtitle">Professional Lead Generation Campaign Results</p>
+
+        <!-- Key Metrics -->
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value">168</div>
+                <div class="metric-label">Total Leads Generated</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">68</div>
+                <div class="metric-label">Emails Sent</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">100</div>
+                <div class="metric-label">UK Leads Ready</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">£70K</div>
+                <div class="metric-label">Revenue Potential</div>
+            </div>
+        </div>
+
+        <!-- Campaign Overview -->
+        <div class="section">
+            <h2>📊 Campaign Overview</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Campaign #1: US/UK Mix</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Status</span>
+                        <span class="stat-value">✅ Emails Sent</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Leads</span>
+                        <span class="stat-value">68</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Sent At</span>
+                        <span class="stat-value">13:33 PM</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Hours In</span>
+                        <span class="stat-value">7.5 hours</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Replies</span>
+                        <span class="stat-value">0 (Normal)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15%"></div>
+                    </div>
+                    <small style="color: #94a3b8;">Expected replies: Day 1-3</small>
+                </div>
+
+                <div class="card">
+                    <h3>Campaign #2: UK Only</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Status</span>
+                        <span class="stat-value">⏳ Ready to Send</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Leads</span>
+                        <span class="stat-value">100</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Cities</span>
+                        <span class="stat-value">4</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Niches</span>
+                        <span class="stat-value">4</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Score</span>
+                        <span class="stat-value">8.2/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <small style="color: #94a3b8;">Ready to launch now</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lead Breakdown -->
+        <div class="section">
+            <h2>📈 Lead Breakdown by Niche</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Niche</th>
+                        <th>Count</th>
+                        <th>Percentage</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🦷 Dentists</td>
+                        <td>52</td>
+                        <td>31%</td>
+                        <td><span class="badge badge-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>🔧 Plumbers</td>
+                        <td>42</td>
+                        <td>25%</td>
+                        <td><span class="badge badge-high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>⚖️ Lawyers</td>
+                        <td>35</td>
+                        <td>21%</td>
+                        <td><span class="badge badge-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td>💉 Med Spas</td>
+                        <td>35</td>
+                        <td>21%</td>
+                        <td><span class="badge badge-medium">MEDIUM</span></td>
+                    </tr>
+                    <tr>
+                        <td>🏠 Real Estate</td>
+                        <td>3</td>
+                        <td>2%</td>
+                        <td><span class="badge badge-low">LOW</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Geographic Distribution -->
+        <div class="section">
+            <h2>🌍 Geographic Distribution</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>United Kingdom</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Total Leads</span>
+                        <span class="stat-value">100</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">London</span>
+                        <span class="stat-value">50</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Birmingham</span>
+                        <span class="stat-value">25</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Manchester</span>
+                        <span class="stat-value">15</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Leeds</span>
+                        <span class="stat-value">10</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>United States</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Total Leads</span>
+                        <span class="stat-value">68</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Austin, TX</span>
+                        <span class="stat-value">12</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">New York, NY</span>
+                        <span class="stat-value">16</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Chicago, IL</span>
+                        <span class="stat-value">14</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">London, UK</span>
+                        <span class="stat-value">2</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Birmingham, UK</span>
+                        <span class="stat-value">3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Projection -->
+        <div class="section">
+            <h2>💰 Revenue Projection</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Conservative (10%)</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Clients</span>
+                        <span class="stat-value">10-17</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Deal</span>
+                        <span class="stat-value">£2,500</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Total</span>
+                        <span class="stat-value" style="color: #22c55e;">£25,000-42,500</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Realistic (15%)</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Clients</span>
+                        <span class="stat-value">15-25</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Deal</span>
+                        <span class="stat-value">£3,000</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Total</span>
+                        <span class="stat-value" style="color: #38bdf8;">£45,000-75,000</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Optimistic (20%)</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Clients</span>
+                        <span class="stat-value">20-34</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Deal</span>
+                        <span class="stat-value">£3,500</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Total</span>
+                        <span class="stat-value" style="color: #818cf8;">£70,000-119,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Packages -->
+        <div class="section">
+            <h2>💳 Payment Packages</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Starter Package</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Price</span>
+                        <span class="stat-value">£997</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Delivery</span>
+                        <span class="stat-value">7 days</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Pages</span>
+                        <span class="stat-value">5 pages</span>
+                    </div>
+                    <a href="https://buy.stripe.com/aFaaEXbeT1bZ0GXcJfg7e0x" class="cta-button" target="_blank">Payment Link</a>
+                </div>
+
+                <div class="card">
+                    <h3>Professional Package ⭐</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Price</span>
+                        <span class="stat-value">£2,497</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Delivery</span>
+                        <span class="stat-value">14 days</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Pages</span>
+                        <span class="stat-value">10 pages + booking</span>
+                    </div>
+                    <a href="https://buy.stripe.com/5kQaEXciXg6T75lcJfg7e0y" class="cta-button" target="_blank">Payment Link</a>
+                </div>
+
+                <div class="card">
+                    <h3>Premium Package</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Price</span>
+                        <span class="stat-value">£4,997</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Delivery</span>
+                        <span class="stat-value">21 days</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Pages</span>
+                        <span class="stat-value">20 pages + full SEO</span>
+                    </div>
+                    <a href="https://buy.stripe.com/dRmaEX96LcUHdtJfVrg7e0z" class="cta-button" target="_blank">Payment Link</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Actions -->
+        <div class="section">
+            <h2>🎯 Next Actions</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Today (Day 0)</h3>
+                    <ul style="list-style: none; color: #94a3b8; line-height: 2;">
+                        <li>✅ 68 emails sent</li>
+                        <li>✅ 100 UK leads generated</li>
+                        <li>⏳ Monitor Gmail (3x daily)</li>
+                        <li>⏳ Launch UK campaign</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Day 1-3 (Mar 27-29)</h3>
+                    <ul style="list-style: none; color: #94a3b8; line-height: 2;">
+                        <li>⏳ First replies expected</li>
+                        <li>⏳ Respond within 1 hour</li>
+                        <li>⏳ Book discovery calls</li>
+                        <li>⏳ Send Day 3 follow-ups</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Day 5-7 (Mar 31-Apr 2)</h3>
+                    <ul style="list-style: none; color: #94a3b8; line-height: 2;">
+                        <li>⏳ Discovery calls</li>
+                        <li>⏳ Send proposals</li>
+                        <li>⏳ Close first deals</li>
+                        <li>⏳ Collect 50% deposits</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Dashboard Generated:</strong> 2026-03-26 21:17 PM</p>
+            <p><strong>Campaign Status:</strong> Active Monitoring Phase</p>
+            <p><strong>Next Pipeline Run:</strong> 2026-03-27 09:00 AM</p>
+            <p style="margin-top: 1rem;">
+                <a href="https://eager-plover-jqx5.here.now/" style="color: #38bdf8; text-decoration: none;">Campaign Dashboard</a> • 
+                <a href="https://mystic-ribbon-qsen.here.now/" style="color: #38bdf8; text-decoration: none;">Checkout Page</a> • 
+                <a href="https://github.com/Tigha66/lead-generation-campaigns" style="color: #38bdf8; text-decoration: none;">GitHub Repo</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
