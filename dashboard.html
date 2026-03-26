@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Generation Campaign Dashboard - Abdelhaq</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .metric-label { color: #94a3b8; margin-top: 0.5rem; font-size: 0.9rem; }
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+        h2 {
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .campaign-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .campaign-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid #38bdf8;
+        }
+        .campaign-card h3 {
+            color: #38bdf8;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        .lead-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .lead-item {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .lead-name { font-weight: 500; }
+        .lead-email { color: #94a3b8; font-size: 0.875rem; }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-sent { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .status-pending { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .payment-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .payment-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .payment-card.popular {
+            border: 2px solid #38bdf8;
+            position: relative;
+        }
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 0.25rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .package-name { font-size: 1.2rem; color: #e2e8f0; margin-bottom: 0.5rem; }
+        .package-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 1rem;
+        }
+        .package-link {
+            display: block;
+            padding: 0.75rem;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-size: 0.875rem;
+            word-break: break-all;
+        }
+        .package-link:hover { background: rgba(56, 189, 248, 0.2); }
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+        .timeline-item {
+            position: relative;
+            padding: 1rem 0;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            padding-left: 1.5rem;
+        }
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            top: 1.25rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #38bdf8;
+        }
+        .timeline-item.done::before { background: #22c55e; }
+        .timeline-date { color: #94a3b8; font-size: 0.875rem; }
+        .timeline-title { font-weight: 600; margin: 0.25rem 0; }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+        }
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            h1 { font-size: 1.75rem; }
+            .metrics { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Lead Generation Dashboard</h1>
+        <p class="subtitle">Complete Campaign Overview • Updated: 2026-03-26 13:15 PM</p>
+
+        <!-- Key Metrics -->
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value">18</div>
+                <div class="metric-label">Emails Sent</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">4</div>
+                <div class="metric-label">Niches Active</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">5</div>
+                <div class="metric-label">Cities Covered</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">£7.4K</div>
+                <div class="metric-label">Revenue Potential</div>
+            </div>
+        </div>
+
+        <!-- Payment System -->
+        <div class="section">
+            <h2>💳 Payment System</h2>
+            <div class="payment-links">
+                <div class="payment-card">
+                    <div class="package-name">Starter Package</div>
+                    <div class="package-price">£997</div>
+                    <ul style="list-style: none; color: #94a3b8; margin: 1rem 0; font-size: 0.875rem;">
+                        <li>✓ 5-page website</li>
+                        <li>✓ 7-day delivery</li>
+                        <li>✓ 30-day support</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/aFaaEXbeT1bZ0GXcJfg7e0x" class="package-link" target="_blank">
+                        https://buy.stripe.com/aFaaEXbeT1bZ0GXcJfg7e0x
+                    </a>
+                </div>
+                <div class="payment-card popular">
+                    <div class="popular-badge">⭐ MOST POPULAR</div>
+                    <div class="package-name">Professional Package</div>
+                    <div class="package-price">£2,497</div>
+                    <ul style="list-style: none; color: #94a3b8; margin: 1rem 0; font-size: 0.875rem;">
+                        <li>✓ 10-page website</li>
+                        <li>✓ Online booking</li>
+                        <li>✓ SEO optimization</li>
+                        <li>✓ 14-day delivery</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/5kQaEXciXg6T75lcJfg7e0y" class="package-link" target="_blank">
+                        https://buy.stripe.com/5kQaEXciXg6T75lcJfg7e0y
+                    </a>
+                </div>
+                <div class="payment-card">
+                    <div class="package-name">Premium Package</div>
+                    <div class="package-price">£4,997</div>
+                    <ul style="list-style: none; color: #94a3b8; margin: 1rem 0; font-size: 0.875rem;">
+                        <li>✓ 20 custom pages</li>
+                        <li>✓ Advanced features</li>
+                        <li>✓ Full SEO</li>
+                        <li>✓ 21-day delivery</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/dRmaEX96LcUHdtJfVrg7e0z" class="package-link" target="_blank">
+                        https://buy.stripe.com/dRmaEX96LcUHdtJfVrg7e0z
+                    </a>
+                </div>
+            </div>
+            <a href="https://mystic-ribbon-qsen.here.now/" class="cta-button" target="_blank">
+                🌐 View Checkout Page: https://mystic-ribbon-qsen.here.now/
+            </a>
+        </div>
+
+        <!-- Campaigns by Niche -->
+        <div class="section">
+            <h2>📧 Campaigns by Niche</h2>
+            <div class="campaign-grid">
+                <!-- Dentists -->
+                <div class="campaign-card">
+                    <h3>🦷 Dentists (12 emails)</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Austin, TX (8) + NYC (4)</p>
+                    <ul class="lead-list">
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">Tech Ridge Dental</div>
+                                <div class="lead-email">info@techridgedental.com</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">The Dental Centre</div>
+                                <div class="lead-email">info@dentalcentreaustin.com</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">Emergency Dentist NYC</div>
+                                <div class="lead-email">emergencydentistnyc212@gmail.com</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">+9 more dentists</div>
+                                <div class="lead-email">See full list below</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Plumbers -->
+                <div class="campaign-card">
+                    <h3>🔧 Plumbers (2 emails)</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">London, UK</p>
+                    <ul class="lead-list">
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">Happy Dog Plumbing</div>
+                                <div class="lead-email">hello@happydogplumbing.london</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">Emergency Plumb Co</div>
+                                <div class="lead-email">info@emergencyplumb.co.uk</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- HVAC -->
+                <div class="campaign-card">
+                    <h3>❄️ HVAC (1 email)</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Chicago, IL</p>
+                    <ul class="lead-list">
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">Daily HVAC Inc</div>
+                                <div class="lead-email">dailyhvac1@aol.com</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Real Estate -->
+                <div class="campaign-card">
+                    <h3>🏠 Real Estate (3 emails)</h3>
+                    <p style="color: #94a3b8; margin-bottom: 1rem;">Birmingham, UK</p>
+                    <ul class="lead-list">
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">The House Agent</div>
+                                <div class="lead-email">hello@thehouseagent.co.uk</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">Prime Estates (Castle)</div>
+                                <div class="lead-email">castlebromwich@primeestatesuk.com</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                        <li class="lead-item">
+                            <div>
+                                <div class="lead-name">Prime Estates (Yardley)</div>
+                                <div class="lead-email">yardley@primeestatesuk.com</div>
+                            </div>
+                            <span class="status-badge status-sent">✅ SENT</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complete Lead List -->
+        <div class="section">
+            <h2>📋 Complete Lead List (18 Total)</h2>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <th style="padding: 1rem; text-align: left; color: #94a3b8;">#</th>
+                            <th style="padding: 1rem; text-align: left; color: #94a3b8;">Company</th>
+                            <th style="padding: 1rem; text-align: left; color: #94a3b8;">Email</th>
+                            <th style="padding: 1rem; text-align: left; color: #94a3b8;">Niche</th>
+                            <th style="padding: 1rem; text-align: left; color: #94a3b8;">City</th>
+                            <th style="padding: 1rem; text-align: left; color: #94a3b8;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">1</td>
+                            <td style="padding: 1rem;">Tech Ridge Dental</td>
+                            <td style="padding: 1rem; color: #94a3b8;">info@techridgedental.com</td>
+                            <td style="padding: 1rem;">Dentist</td>
+                            <td style="padding: 1rem;">Austin, TX</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">2</td>
+                            <td style="padding: 1rem;">The Dental Centre</td>
+                            <td style="padding: 1rem; color: #94a3b8;">info@dentalcentreaustin.com</td>
+                            <td style="padding: 1rem;">Dentist</td>
+                            <td style="padding: 1rem;">Austin, TX</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">3</td>
+                            <td style="padding: 1rem;">Emergency Dentist NYC</td>
+                            <td style="padding: 1rem; color: #94a3b8;">emergencydentistnyc212@gmail.com</td>
+                            <td style="padding: 1rem;">Dentist</td>
+                            <td style="padding: 1rem;">New York, NY</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">4</td>
+                            <td style="padding: 1rem;">New York Smiles Dental</td>
+                            <td style="padding: 1rem; color: #94a3b8;">NewYorkSmilesDental@gmail.com</td>
+                            <td style="padding: 1rem;">Dentist</td>
+                            <td style="padding: 1rem;">New York, NY</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">5</td>
+                            <td style="padding: 1rem;">Dr Province DDS</td>
+                            <td style="padding: 1rem; color: #94a3b8;">info@drprovince.com</td>
+                            <td style="padding: 1rem;">Dentist</td>
+                            <td style="padding: 1rem;">New York, NY</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">6</td>
+                            <td style="padding: 1rem;">DentAlign NYC</td>
+                            <td style="padding: 1rem; color: #94a3b8;">DentAlignNYC@gmail.com</td>
+                            <td style="padding: 1rem;">Dentist</td>
+                            <td style="padding: 1rem;">New York, NY</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">7</td>
+                            <td style="padding: 1rem;">Happy Dog Plumbing</td>
+                            <td style="padding: 1rem; color: #94a3b8;">hello@happydogplumbing.london</td>
+                            <td style="padding: 1rem;">Plumber</td>
+                            <td style="padding: 1rem;">London, UK</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">8</td>
+                            <td style="padding: 1rem;">Emergency Plumb Co</td>
+                            <td style="padding: 1rem; color: #94a3b8;">info@emergencyplumb.co.uk</td>
+                            <td style="padding: 1rem;">Plumber</td>
+                            <td style="padding: 1rem;">London, UK</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">9</td>
+                            <td style="padding: 1rem;">Daily HVAC Inc</td>
+                            <td style="padding: 1rem; color: #94a3b8;">dailyhvac1@aol.com</td>
+                            <td style="padding: 1rem;">HVAC</td>
+                            <td style="padding: 1rem;">Chicago, IL</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">10</td>
+                            <td style="padding: 1rem;">The House Agent</td>
+                            <td style="padding: 1rem; color: #94a3b8;">hello@thehouseagent.co.uk</td>
+                            <td style="padding: 1rem;">Real Estate</td>
+                            <td style="padding: 1rem;">Birmingham, UK</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">11</td>
+                            <td style="padding: 1rem;">Prime Estates (Castle)</td>
+                            <td style="padding: 1rem; color: #94a3b8;">castlebromwich@primeestatesuk.com</td>
+                            <td style="padding: 1rem;">Real Estate</td>
+                            <td style="padding: 1rem;">Birmingham, UK</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">12</td>
+                            <td style="padding: 1rem;">Prime Estates (Yardley)</td>
+                            <td style="padding: 1rem; color: #94a3b8;">yardley@primeestatesuk.com</td>
+                            <td style="padding: 1rem;">Real Estate</td>
+                            <td style="padding: 1rem;">Birmingham, UK</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem;">13-18</td>
+                            <td style="padding: 1rem;">+6 more dentists</td>
+                            <td style="padding: 1rem; color: #94a3b8;">See campaign files</td>
+                            <td style="padding: 1rem;">Dentist</td>
+                            <td style="padding: 1rem;">Austin/NYC</td>
+                            <td style="padding: 1rem;"><span class="status-badge status-sent">✅ SENT</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="section">
+            <h2>📅 Campaign Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item done">
+                    <div class="timeline-date">Day 0 - 08:55 AM</div>
+                    <div class="timeline-title">✅ 14 emails sent (Dentists + Plumbers)</div>
+                </div>
+                <div class="timeline-item done">
+                    <div class="timeline-date">Day 0 - 08:55 AM</div>
+                    <div class="timeline-title">✅ Checkout page published</div>
+                </div>
+                <div class="timeline-item done">
+                    <div class="timeline-date">Day 0 - 13:10 PM</div>
+                    <div class="timeline-title">✅ 30 new leads generated (HVAC + Real Estate)</div>
+                </div>
+                <div class="timeline-item done">
+                    <div class="timeline-date">Day 0 - 13:15 PM</div>
+                    <div class="timeline-title">✅ 4 more emails sent (Total: 18)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 1-2 (Mar 27-28)</div>
+                    <div class="timeline-title">📧 First replies expected (3-5)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 3-7 (Mar 29 - Apr 2)</div>
+                    <div class="timeline-title">📞 Discovery calls</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 5-7 (Mar 31 - Apr 2)</div>
+                    <div class="timeline-title">💰 First payments expected</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Day 7-14 (Apr 2-9)</div>
+                    <div class="timeline-title">🚀 Start building websites</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Projection -->
+        <div class="section">
+            <h2>💰 Revenue Projection</h2>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-value" style="font-size: 2rem;">£7,425</div>
+                    <div class="metric-label">Realistic (15% close rate)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="font-size: 2rem;">£4,950</div>
+                    <div class="metric-label">Conservative (10% close rate)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" style="font-size: 2rem;">£12,375</div>
+                    <div class="metric-label">Optimistic (25% close rate)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section">
+            <h2>⚡ Quick Actions</h2>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://mail.google.com" class="cta-button" target="_blank">📧 Check Gmail</a>
+                <a href="https://mystic-ribbon-qsen.here.now/" class="cta-button" target="_blank">🌐 Checkout Page</a>
+                <a href="https://dashboard.stripe.com" class="cta-button" target="_blank">💳 Stripe Dashboard</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated by Herald SEO Agent + Lead Gen System • 2026-03-26</p>
+            <p>18 Emails Sent • 4 Niches • 5 Cities • 2 Countries</p>
+            <p style="margin-top: 1rem;">Expected First Payment: Day 5-7 (Mar 31 - Apr 2)</p>
+        </div>
+    </div>
+</body>
+</html>

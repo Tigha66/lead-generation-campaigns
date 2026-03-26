@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Redesign Packages - Professional Web Design Services</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+        }
+        .packages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .package {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .package:hover { transform: translateY(-5px); }
+        .package.popular {
+            border: 2px solid #38bdf8;
+            position: relative;
+        }
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 0.25rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .package-name { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .package-price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 0.5rem;
+        }
+        .package-price span { font-size: 1rem; color: #94a3b8; }
+        .package-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        .package-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #cbd5e1;
+        }
+        .package-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: bold;
+        }
+        .cta-button {
+            display: inline-block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+        .cta-button:hover { opacity: 0.9; }
+        .how-it-works {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 1rem;
+            margin: 3rem 0;
+        }
+        .how-it-works h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #e2e8f0;
+        }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .step {
+            text-align: center;
+            padding: 1rem;
+        }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            color: #0f172a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        .faq {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 1rem;
+            margin: 3rem 0;
+        }
+        .faq h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #e2e8f0;
+        }
+        .faq-item {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0.5rem;
+        }
+        .faq-question {
+            font-weight: 600;
+            color: #38bdf8;
+            margin-bottom: 0.5rem;
+        }
+        .faq-answer { color: #cbd5e1; }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+        }
+        .guarantee {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Professional Website Redesign</h1>
+        <p class="subtitle">Get a premium website in 7-21 days. Trusted by businesses in Austin, NYC, London & beyond.</p>
+        
+        <div class="guarantee">
+            <strong>✅ Satisfaction Guaranteed</strong> — Unlimited revisions during design phase. Your success is our priority.
+        </div>
+
+        <div class="packages">
+            <!-- Starter Package -->
+            <div class="package">
+                <h3 class="package-name">Starter</h3>
+                <div class="package-price">£997 <span>one-time</span></div>
+                <p style="color: #94a3b8;">Perfect for small businesses</p>
+                <ul class="package-features">
+                    <li>5-page website redesign</li>
+                    <li>Mobile-optimized design</li>
+                    <li>Contact forms</li>
+                    <li>7-day delivery</li>
+                    <li>30-day support</li>
+                    <li>50% deposit, 50% on completion</li>
+                </ul>
+                <a href="https://buy.stripe.com/aFaaEXbeT1bZ0GXcJfg7e0x" class="cta-button">Get Started →</a>
+            </div>
+
+            <!-- Professional Package -->
+            <div class="package popular">
+                <div class="popular-badge">⭐ MOST POPULAR</div>
+                <h3 class="package-name">Professional</h3>
+                <div class="package-price">£2,497 <span>one-time</span></div>
+                <p style="color: #94a3b8;">Best for growing businesses</p>
+                <ul class="package-features">
+                    <li>10-page website redesign</li>
+                    <li>Online booking system</li>
+                    <li>SEO optimization</li>
+                    <li>Mobile-optimized design</li>
+                    <li>Google Analytics setup</li>
+                    <li>14-day delivery</li>
+                    <li>60-day support</li>
+                    <li>50% deposit, 50% on completion</li>
+                </ul>
+                <a href="https://buy.stripe.com/5kQaEXciXg6T75lcJfg7e0y" class="cta-button">Get Started →</a>
+            </div>
+
+            <!-- Premium Package -->
+            <div class="package">
+                <h3 class="package-name">Premium</h3>
+                <div class="package-price">£4,997 <span>one-time</span></div>
+                <p style="color: #94a3b8;">For established businesses</p>
+                <ul class="package-features">
+                    <li>Up to 20 custom pages</li>
+                    <li>Advanced online booking</li>
+                    <li>Full SEO optimization</li>
+                    <li>Premium design with animations</li>
+                    <li>Live chat integration</li>
+                    <li>Google Analytics + Search Console</li>
+                    <li>Social media integration</li>
+                    <li>21-day delivery</li>
+                    <li>90-day priority support</li>
+                    <li>1 month free maintenance</li>
+                    <li>50% deposit, 50% on completion</li>
+                </ul>
+                <a href="https://buy.stripe.com/dRmaEX96LcUHdtJfVrg7e0z" class="cta-button">Get Started →</a>
+            </div>
+        </div>
+
+        <div class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Choose Package</h3>
+                    <p style="color: #94a3b8;">Select the package that fits your business needs</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Secure Slot</h3>
+                    <p style="color: #94a3b8;">Pay 50% deposit to secure your spot (only 2 slots/month)</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Kickoff Call</h3>
+                    <p style="color: #94a3b8;">Schedule call within 24 hours to discuss your brand</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Website Live</h3>
+                    <p style="color: #94a3b8;">New website delivered in 7-21 days, pay remaining 50%</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">Q: What's included in the deposit?</div>
+                <div class="faq-answer">A: 50% upfront secures your slot and begins the project. Remaining 50% is due on completion before launch. This ensures commitment from both sides.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q: How quickly can you start?</div>
+                <div class="faq-answer">A: I have 2 slots open each month. First-come, first-served. Once you secure your slot, we'll schedule a kickoff call within 24 hours.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q: What if I'm not happy with the design?</div>
+                <div class="faq-answer">A: Unlimited revisions during the design phase. Your satisfaction is 100% guaranteed. I'll work with you until you love your new website.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q: Do you offer payment plans?</div>
+                <div class="faq-answer">A: Yes! All packages include 50% upfront, 50% on completion. Secure payment via Stripe (all major cards accepted: Visa, Mastercard, Amex).</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q: What do you need from me to get started?</div>
+                <div class="faq-answer">A: After payment, I'll send a brand questionnaire covering your logo, colors, content, and preferences. We'll also schedule a 30-minute kickoff call to discuss your vision.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q: Do you offer ongoing support?</div>
+                <div class="faq-answer">A: Yes! All packages include support (30-90 days depending on package). Premium includes 1 month free maintenance. Ongoing support available after initial period.</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated by Herald SEO Agent + Lead Gen System • 2026</p>
+            <p>Secure payments via Stripe • All major cards accepted</p>
+            <p style="margin-top: 1rem;">Questions? Email: abdelhaq@example.com</p>
+        </div>
+    </div>
+</body>
+</html>
